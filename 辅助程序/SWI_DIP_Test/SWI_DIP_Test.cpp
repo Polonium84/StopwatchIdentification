@@ -1,21 +1,10 @@
-﻿#include <iostream>
-#include <ctime>
-#include <string>
-#include <opencv2/opencv.hpp>
-
-using namespace cv;
-using namespace std;
-
-void testimg(Mat, const char*);
-Mat PreProcess(Mat);
-Mat Binarize(Mat);
-Mat Open(Mat);
-Mat Edge(Mat);
-void HoughCircle(Mat);
-void HoughLine(Mat);
+﻿#include "SWI_DIP_Test.h"
 
 String IMGPATH = "F:\\毕业设计\\图片素材\\source.jpg";
 Mat originImg;
+Mat img_preProcess;
+Mat img_binary;
+Mat img_edge;
 Mat img_circle;
 Mat img_line;
 
@@ -26,13 +15,15 @@ int main()
     //testimg(m, "test");
     m = PreProcess(m);
     m = Binarize(m);
-    m = Open(m);
-    //testimg(m, "Open");
-    //return 0;
+    m = Thin(m);
+    //testimg(m, "Thin1");
+    //m = Open(m);
     m = Edge(m);
+    //testimg(m, "Edge_Thin");
+    //return 0;
     HoughCircle(m);
     HoughLine(m);
-    testimg(img_line, "HoughLine");
+    testimg(img_line, "HoughLine_Thin_Edge");
     return 0;
 }
 Mat PreProcess(Mat m)
@@ -48,9 +39,16 @@ Mat Binarize(Mat m)
     Mat out;
     Mat gray;
     cvtColor(m, gray, ColorConversionCodes::COLOR_BGR2GRAY);
-    threshold(gray, out, 0, 255, ThresholdTypes::THRESH_OTSU);
+    threshold(gray, out, 0, 255, ThresholdTypes::THRESH_OTSU+ThresholdTypes::THRESH_BINARY_INV);
     //threshold(gray, out, 127, 255, ThresholdTypes::THRESH_BINARY);
     cout << "Binarize Succeed" << endl;
+    return out;
+}
+Mat Thin(Mat m)
+{
+    Mat out;
+    gThin(m, out, 12);
+    cout << "Thin Succeed" << endl;
     return out;
 }
 Mat Open(Mat m)
@@ -74,7 +72,7 @@ void HoughCircle(Mat m)
 {
     Mat out = originImg;
     vector<Vec3f> circles;
-    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1, 200, 100.0, 200.0);
+    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1, 200, 100.0, 150.0);
     for (size_t i = 0; i < circles.size(); i++)
     {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
@@ -91,7 +89,7 @@ void HoughLine(Mat m)
 {
     Mat out = img_circle;
     vector<Vec4i> lines;
-    HoughLinesP(m, lines, 1, CV_PI / 180, 80, 50, 5);
+    HoughLinesP(m, lines, 1, CV_PI / 180, 100, 50, 10);
     for (size_t i = 0; i < lines.size(); i++)
     {
         line(out, Point(lines[i][0], lines[i][1]),

@@ -143,6 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SWI_DIP_Test.cpp" />
+    <ClCompile Include="Thin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SWI_DIP_Test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
