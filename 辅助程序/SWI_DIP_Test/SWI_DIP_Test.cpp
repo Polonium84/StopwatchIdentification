@@ -7,24 +7,39 @@ Mat img_binary;
 Mat img_edge;
 Mat img_circle;
 Mat img_line;
+Dial sDial, lDial;
+Indicator sIndicator, lIndicator;
 
 int main()
 {
     originImg = imread(IMGPATH);
     Mat m = originImg;
-    //testimg(m, "test");
-    m = PreProcess(m);
-    m = Binarize(m);
-    m = Thin(m);
+    img_preProcess = PreProcess(originImg);
+    DetectCircle(img_preProcess);
+    DetectIndicator(img_preProcess);
     //testimg(m, "Thin1");
     //m = Open(m);
-    m = Edge(m);
     //testimg(m, "Edge_Thin");
     //return 0;
-    HoughCircle(m);
-    HoughLine(m);
-    testimg(img_line, "HoughLine_Thin_Edge");
+    testimg(img_line, "HoughLine_New");
     return 0;
+}
+void DetectCircle(Mat m) 
+{
+    cout << "***Beginning detect circle..." << endl;
+    m = Binarize(m, false);
+    m = Edge(m);
+    HoughCircle(m);
+    cout << "***Detect circle completed." << endl;
+}
+void DetectIndicator(Mat m)
+{
+    cout << "***Beginning detect indicator..." << endl;
+    m = Binarize(m, true);
+    m = Thin(m);
+    m = Edge(m);
+    HoughLine(m);
+    cout << "***Detect indicator completed." << endl;
 }
 Mat PreProcess(Mat m)
 {
@@ -34,12 +49,15 @@ Mat PreProcess(Mat m)
     cout << "PreProcess Succeed" << endl;
     return out;
 }
-Mat Binarize(Mat m)
+Mat Binarize(Mat m,bool inv)
 {
     Mat out;
     Mat gray;
     cvtColor(m, gray, ColorConversionCodes::COLOR_BGR2GRAY);
-    threshold(gray, out, 0, 255, ThresholdTypes::THRESH_OTSU+ThresholdTypes::THRESH_BINARY_INV);
+    if(inv)
+        threshold(gray, out, 0, 255, ThresholdTypes::THRESH_OTSU + ThresholdTypes::THRESH_BINARY_INV);
+    else
+        threshold(gray, out, 0, 255, ThresholdTypes::THRESH_OTSU);
     //threshold(gray, out, 127, 255, ThresholdTypes::THRESH_BINARY);
     cout << "Binarize Succeed" << endl;
     return out;
@@ -72,7 +90,8 @@ void HoughCircle(Mat m)
 {
     Mat out = originImg;
     vector<Vec3f> circles;
-    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1, 200, 100.0, 150.0);
+    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1, 200, 100.0, 200.0);
+    FiltrateCircle(circles);//筛选
     for (size_t i = 0; i < circles.size(); i++)
     {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
@@ -85,11 +104,24 @@ void HoughCircle(Mat m)
     img_circle = out;
     cout << "Hough Circle Succeed" << endl;
 }
+void FiltrateCircle(vector<Vec3f>& circles)
+{
+    if (circles.size() == 2)//刚好有2个圆时无需筛选
+        return;
+    else if (circles.size() < 2)
+    {
+        cerr << "Too few circles";//少于2个圆时，识别出错
+        return;
+    }
+    //多于2个圆时，进行筛选
+    int circles_to_remove[100];
+}
 void HoughLine(Mat m)
 {
     Mat out = img_circle;
     vector<Vec4i> lines;
     HoughLinesP(m, lines, 1, CV_PI / 180, 100, 50, 10);
+    FiltrateLine(lines);//筛选
     for (size_t i = 0; i < lines.size(); i++)
     {
         line(out, Point(lines[i][0], lines[i][1]),
@@ -97,6 +129,11 @@ void HoughLine(Mat m)
     }
     img_line = out;
     cout << "Hough Line Succeed" << endl;
+}
+void FiltrateLine(vector<Vec4i>& lines)
+{
+    int lines_to_remove[100];
+
 }
 void testimg(Mat m, const char* s)
 {

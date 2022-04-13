@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <cmath>
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
@@ -14,12 +15,16 @@ using namespace std;
 //主程序
 void testimg(Mat m, const char* s);
 Mat PreProcess(Mat m);
-Mat Binarize(Mat m);
+Mat Binarize(Mat m,bool inv);
 Mat Thin(Mat m);
 Mat Open(Mat m);
 Mat Edge(Mat m);
 void HoughCircle(Mat m);
 void HoughLine(Mat m);
+void DetectCircle(Mat m);
+void DetectIndicator(Mat m);
+void FiltrateCircle(vector<Vec3f>& circles);
+void FiltrateLine(vector<Vec4i>& lines);
 
 //Thin.cpp
 //细化算法部分
@@ -34,14 +39,14 @@ enum DialType {
 
 struct Dial
 {
-	DialType dialType;
+	//DialType dialType;
 	Point center;
 	int radius;
 };
 
 struct Indicator
 {
-	DialType dialType;
+	//DialType dialType;
 	Point p1;
 	Point p2;
 };
