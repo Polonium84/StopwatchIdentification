@@ -9,10 +9,13 @@ Mat img_circle;
 Mat img_line;
 Dial sDial, lDial;
 Indicator sIndicator, lIndicator;
+int img_width, img_height;
 
 int main()
 {
     originImg = imread(IMGPATH);
+    img_width = originImg.rows;
+    img_height = originImg.cols;
     Mat m = originImg;
     img_preProcess = PreProcess(originImg);
     DetectCircle(img_preProcess);
@@ -21,7 +24,7 @@ int main()
     //m = Open(m);
     //testimg(m, "Edge_Thin");
     //return 0;
-    testimg(img_line, "HoughLine_New");
+    testimg(img_line, "FiltrateCircle");
     return 0;
 }
 void DetectCircle(Mat m) 
@@ -90,8 +93,9 @@ void HoughCircle(Mat m)
 {
     Mat out = originImg;
     vector<Vec3f> circles;
-    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1, 200, 100.0, 200.0);
-    FiltrateCircle(circles);//筛选
+    HoughCircles(m, circles, HoughModes::HOUGH_GRADIENT, 1.5, 200, 100.0, 100.0);
+    //FiltrateCircle(circles);//筛选
+    cout << "绘制圆个数：" << circles.size() << endl;
     for (size_t i = 0; i < circles.size(); i++)
     {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
@@ -113,8 +117,29 @@ void FiltrateCircle(vector<Vec3f>& circles)
         cerr << "Too few circles";//少于2个圆时，识别出错
         return;
     }
+    cout << "检测圆个数：" << circles.size() << endl;
     //多于2个圆时，进行筛选
-    int circles_to_remove[100];
+    vector<int> circles_to_remove;
+    //circles_to_remove.reserve(500);
+    for (size_t i = 0; i < circles.size(); i++)
+    {
+        float x = circles[i][0];//圆心横坐标
+        float y = circles[i][1];//圆心纵坐标
+        int r = circles[i][2];//半径
+        if (x + r > img_width || x - r<0 || y + r>img_height || y - r < 0)//判断圆是否完整
+        {
+            circles_to_remove.push_back(i);
+            printf_s("-----剔除(%2f,%2f) %d\n", x, y, r);
+        }
+    }
+    cout << "剔除圆个数:" << circles_to_remove.size() << endl;
+    int offset = 0;
+    for (vector<int>::iterator it = circles_to_remove.begin(); it != circles_to_remove.end();it++)
+    {
+        cout << "#" << circles[*it - offset][2] << endl;
+        circles.erase(circles.begin() + *it - 1 - offset);
+        offset++;
+    }
 }
 void HoughLine(Mat m)
 {
@@ -147,7 +172,7 @@ void testimg(Mat m, const char* s)
         name,
         sizeof(name),
         "./output/%d-%d-%d-%d-%d-%d-%s.jpg",
-        tm->tm_year + 1900, tm->tm_mon, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec, s
+        tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec, s
     );
     String savePath = name;
     if (int key = waitKey(10000) == 's') {
