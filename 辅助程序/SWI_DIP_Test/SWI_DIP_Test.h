@@ -33,6 +33,11 @@ void ThinSubiteration1(Mat& pSrc, Mat& pDst);
 void ThinSubiteration2(Mat& pSrc, Mat& pDst);
 void gThin(cv::Mat& src, cv::Mat& dst, int intera);
 
+//Math.cpp
+//数学计算部分
+double Length(Vec4i line);
+double Length(Point p1, Point p2);
+
 enum DialType {
 	Small = 1,
 	Large = 2

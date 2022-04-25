@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="SWI_DIP_Test.cpp" />
     <ClCompile Include="Thin.cpp" />
   </ItemGroup>

@@ -62,6 +62,7 @@ namespace SWIdentification
             this.pbPic.Location = new System.Drawing.Point(30, 67);
             this.pbPic.Name = "pbPic";
             this.pbPic.Size = new System.Drawing.Size(960, 640);
+            this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPic.TabIndex = 0;
             this.pbPic.TabStop = false;
             // 
