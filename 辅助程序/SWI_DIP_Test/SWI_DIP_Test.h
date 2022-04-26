@@ -24,8 +24,10 @@ void HoughCircle(Mat m);
 void HoughLine(Mat m);
 void DetectCircle(Mat m);
 void DetectIndicator(Mat m);
-void FiltrateCircle(vector<Vec3f>& circles);
-void FiltrateLine(vector<Vec4i>& lines);
+vector<Vec3f> FiltrateCircle(vector<Vec3f> circles);
+vector<Vec4i> FiltrateLine(vector<Vec4i> lines);
+void RemoveCircle(vector<Vec3f>& source, vector<int> target);
+void RemoveLine(vector<Vec4i>& source, vector<int> target);
 
 //Thin.cpp
 //细化算法部分
@@ -37,6 +39,8 @@ void gThin(cv::Mat& src, cv::Mat& dst, int intera);
 //数学计算部分
 double Length(Vec4i line);
 double Length(Point p1, Point p2);
+double CosineLaw(Point p1, Point p2, Point p3);
+Point Midpoint(Point p1, Point p2);
 
 enum DialType {
 	Small = 1,
