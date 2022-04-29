@@ -15,28 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SWI_DIP.cpp">
+    <ClCompile Include="CppConsole.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dip_settings.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="dip_exception.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="dip_thin.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="dip_math.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SWI_DIP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="dip_settings.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

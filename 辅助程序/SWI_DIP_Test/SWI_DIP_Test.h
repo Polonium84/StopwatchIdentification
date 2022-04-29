@@ -67,4 +67,7 @@ struct Indicator
 	//DialType dialType;
 	Point p1;
 	Point p2;
+	operator Vec4i() {
+		return{ p1.x,p1.y,p2.x,p2.y };
+	}
 };

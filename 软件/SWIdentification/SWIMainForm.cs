@@ -6,11 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 
 namespace SWIdentification
 {
@@ -22,6 +23,7 @@ namespace SWIdentification
         string swdataFilePath = @".\StopWatches.xml";
         string cacheDirPath = @".\cache";
         string logFilePath = @".\log.txt";
+        delegate void TextOutput(string s);
         //********************************************
         public SWIMainForm()
         {
@@ -80,7 +82,6 @@ namespace SWIdentification
             pbPic.Image = null;
             tbResultMin.Text = String.Empty;
             tbResultSec.Text = String.Empty;
-            tbReliability.Text = String.Empty;
             //记录日志
             SWILog.Info("主窗口初始化成功");
         }
@@ -88,6 +89,44 @@ namespace SWIdentification
         {
             if (!File.Exists(logFilePath))
                 File.Create(logFilePath).Close();
+        }
+        void Output(string text)
+        {
+            if (tbLog.InvokeRequired)
+            {
+                TextOutput d = new TextOutput(Output);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+                this.tbLog.Text += text + "\r\n";
+        }
+        void DIP()
+        {
+            Process dip = new Process();
+            dip.StartInfo.FileName =
+                @"F:\毕业设计\程序\辅助程序\SWI_DIP_Test\x64\Release\SWI_DIP_Test.exe";
+            dip.StartInfo.UseShellExecute = false;
+            dip.StartInfo.CreateNoWindow = true;
+            dip.StartInfo.RedirectStandardOutput = true;
+            dip.StartInfo.RedirectStandardError = true;
+            dip.StartInfo.RedirectStandardInput = true;
+            dip.OutputDataReceived += new DataReceivedEventHandler(Dip_OutputDataReceived);
+            dip.Start();
+            dip.BeginOutputReadLine();
+            dip.WaitForExit();
+        }
+
+        private void Dip_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            string s= e.Data;
+            Output(s);
+        }
+
+        private void btnIdentify_Click(object sender, EventArgs e)
+        {
+            ThreadStart dipThreadStart = new ThreadStart(DIP);
+            Thread dipProcess = new Thread(dipThreadStart);
+            dipProcess.Start();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿#include "SWI_DIP_Test.h"
 #pragma region GLOBAL
 String IMGPATH = "F:\\毕业设计\\图片素材\\source.jpg";
+//String IMGPATH = "F:\\毕业设计\\图片素材\\P1010361.JPG";
 Mat originImg;
 Mat img_preProcess;
 Mat img_binary;
@@ -12,7 +13,8 @@ Indicator sIndicator, lIndicator;
 int img_width, img_height;
 double fix_value = 0.0;
 Line zero_line;
-SWType swtype = SWType::SW504;
+SWType swtype = SWType::SW505;
+double result_sec, result_min;
 #pragma endregion
 int main()
 {
@@ -25,6 +27,7 @@ int main()
 	cout << img_height << endl;
 	DetectCircle(img_preProcess);
 	DetectIndicator(img_preProcess);
+	Settle();
 	testimg(img_line, "FiltrateLine");
 	return 0;
 }
@@ -164,12 +167,13 @@ void HoughLine(Mat m)
 {
 	Mat out = img_circle;
 	vector<Vec4i> lines;
-	HoughLinesP(m, lines, 1, CV_PI / 180, 100, 50, 10);
+	HoughLinesP(m, lines, 1, CV_PI / 180, 100, 50, 20);
 	vector<Vec4i> indicators = FiltrateLine(lines);//筛选
 	sIndicator.p1 = sDial.center;
 	sIndicator.p2 = Midpoint(indicators[0]);
 	lIndicator.p1 = lDial.center;
-	lIndicator.p2 = Midpoint(indicators[1]);
+	//lIndicator.p2 = Midpoint(indicators[1]);
+	lIndicator.p2 = Point(indicators[1][2], indicators[1][3]);
 	line(out, sDial.center, IntersectionPoint(sIndicator.p2, sDial.center, sDial.radius),
 		Scalar(0, 255, 0), 10, 8);
 	line(out, lDial.center, IntersectionPoint(lIndicator.p2, lDial.center, lDial.radius),
@@ -246,7 +250,28 @@ void RemoveLine(vector<Vec4i>& source, vector<int> target)
 void Settle()
 {
 	double sAngle,lAngle;
-	if(IsMoreThan180(zero_line,))
+	if (IsMoreThan180(zero_line, sIndicator))
+		sAngle = acos(CosineLaw(zero_line, sIndicator)) * 180 / CV_PI + 180;
+	else
+		sAngle = acos(CosineLaw(zero_line, sIndicator)) * 180 / CV_PI;
+	if (IsMoreThan180(zero_line, lIndicator))
+		lAngle = acos(CosineLaw(zero_line, lIndicator)) * 180 / CV_PI + 180;
+	else
+		lAngle = acos(CosineLaw(zero_line, lIndicator)) * 180 / CV_PI;
+	switch (swtype)
+	{
+	case SW504:
+		break;
+	case SW505:
+		result_sec = round(lAngle * 5 * 60 / 360) / 5;
+		result_min = floor(sAngle * 30 / 360);
+		break;
+	default:
+		break;
+	}
+	cout << setw(60) << setfill('*') << "计算结果" << endl;
+	cout << result_min << "分 " << result_sec << "秒" << endl;
+	cout << setw(60) << setfill('*')  << '*' << endl;
 }
 void testimg(Mat m, const char* s)
 {
