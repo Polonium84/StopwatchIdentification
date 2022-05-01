@@ -34,6 +34,9 @@ namespace SWIdentification
             this.btnPhoto = new System.Windows.Forms.Button();
             this.btnInputFile = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbFix = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbSWType = new System.Windows.Forms.ComboBox();
             this.btnIdentify = new System.Windows.Forms.Button();
@@ -46,12 +49,9 @@ namespace SWIdentification
             this.btnReset = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbFix = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tbLog = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbPic)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -105,7 +105,7 @@ namespace SWIdentification
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnSettings);
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.tbFix);
             this.groupBox2.Controls.Add(this.label3);
@@ -117,6 +117,37 @@ namespace SWIdentification
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "识别设置";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(329, 144);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 33);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "秒";
+            // 
+            // tbFix
+            // 
+            this.tbFix.BackColor = System.Drawing.SystemColors.Window;
+            this.tbFix.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbFix.Location = new System.Drawing.Point(221, 141);
+            this.tbFix.Name = "tbFix";
+            this.tbFix.ReadOnly = true;
+            this.tbFix.Size = new System.Drawing.Size(101, 44);
+            this.tbFix.TabIndex = 9;
+            this.tbFix.Text = "0.0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(65, 144);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 33);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "修正值";
             // 
             // label1
             // 
@@ -179,17 +210,17 @@ namespace SWIdentification
             // 
             this.tbResultSec.BackColor = System.Drawing.SystemColors.Window;
             this.tbResultSec.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbResultSec.Location = new System.Drawing.Point(343, 56);
+            this.tbResultSec.Location = new System.Drawing.Point(324, 56);
             this.tbResultSec.Name = "tbResultSec";
             this.tbResultSec.ReadOnly = true;
-            this.tbResultSec.Size = new System.Drawing.Size(101, 53);
+            this.tbResultSec.Size = new System.Drawing.Size(120, 53);
             this.tbResultSec.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(290, 59);
+            this.label4.Location = new System.Drawing.Point(270, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 40);
             this.label4.TabIndex = 6;
@@ -199,7 +230,7 @@ namespace SWIdentification
             // 
             this.tbResultMin.BackColor = System.Drawing.SystemColors.Window;
             this.tbResultMin.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbResultMin.Location = new System.Drawing.Point(183, 56);
+            this.tbResultMin.Location = new System.Drawing.Point(163, 56);
             this.tbResultMin.Name = "tbResultMin";
             this.tbResultMin.ReadOnly = true;
             this.tbResultMin.Size = new System.Drawing.Size(101, 53);
@@ -245,47 +276,6 @@ namespace SWIdentification
             this.label6.TabIndex = 6;
             this.label6.Text = "哈尔滨理工大学 测控技术与通信工程学院 测控18-5班 贾亦祺";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(65, 144);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 33);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "修正值";
-            // 
-            // tbFix
-            // 
-            this.tbFix.BackColor = System.Drawing.SystemColors.Window;
-            this.tbFix.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbFix.Location = new System.Drawing.Point(221, 141);
-            this.tbFix.Name = "tbFix";
-            this.tbFix.ReadOnly = true;
-            this.tbFix.Size = new System.Drawing.Size(101, 44);
-            this.tbFix.TabIndex = 9;
-            this.tbFix.Text = "0.0";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(329, 144);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 33);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "秒";
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSettings.Location = new System.Drawing.Point(164, 224);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(225, 50);
-            this.btnSettings.TabIndex = 7;
-            this.btnSettings.Text = "详细参数设置";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            // 
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(1065, 685);
@@ -303,6 +293,19 @@ namespace SWIdentification
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbLog.Size = new System.Drawing.Size(546, 210);
             this.tbLog.TabIndex = 8;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox1.Location = new System.Drawing.Point(221, 221);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(111, 37);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "估读";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // SWIMainForm
             // 
@@ -352,12 +355,12 @@ namespace SWIdentification
         private System.Windows.Forms.TextBox tbResultMin;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbFix;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TextBox tbLog;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

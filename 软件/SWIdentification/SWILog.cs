@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Text;
 using System.IO;
 
 namespace SWIdentification
 {
-    static class SWILog
+    internal static class SWILog
     {
-        static string logFilePath = @".\log.txt";
+        private static string logFilePath = @".\log.txt";
+
         public static void Info(string content)
         {
             string date = DateTime.Now.ToString("G");
@@ -15,6 +15,7 @@ namespace SWIdentification
             sw.WriteLine(text);
             sw.Close();
         }
+
         public static void Warn(string content)
         {
             string date = DateTime.Now.ToString("G");
@@ -23,6 +24,7 @@ namespace SWIdentification
             sw.WriteLine(text);
             sw.Close();
         }
+
         public static void Error(string content)
         {
             string date = DateTime.Now.ToString("G");
@@ -31,6 +33,7 @@ namespace SWIdentification
             sw.WriteLine(text);
             sw.Close();
         }
+
         public static void Debug(string content)
         {
             string date = DateTime.Now.ToString("G");

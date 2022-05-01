@@ -28,10 +28,9 @@ Point Midpoint(Line line);
 Point IntersectionPoint(Point p, Point center, int radius);
 bool IsMoreThan180(Line v1, Line v2);
 #pragma endregion
-
 //细化算法部分
 #pragma region dip_thin.cpp
-
+void Thin(Mat& src, Mat& dst, int intera);
 #pragma endregion
 //异常处理部分
 #pragma region dip_exception.cpp
@@ -39,6 +38,5 @@ bool IsMoreThan180(Line v1, Line v2);
 #pragma endregion
 //主程序部分
 #pragma region SWI_DIP.cpp
-
+bool AutoMode(int argc, char** argv);
 #pragma endregion
-

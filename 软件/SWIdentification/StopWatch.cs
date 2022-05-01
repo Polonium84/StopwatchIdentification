@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SWIdentification
+﻿namespace SWIdentification
 {
     public class StopWatch
     {
         //秒表型号
         public string Type { get; set; }
+
         //分辨率（秒）
         public float Resolution { get; set; }
+
         //分针每圈（分）
         public int MinEachLoop { get; set; }
+
         //秒针每圈（秒）
         public int SecEachLoop { get; set; }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -30,9 +28,11 @@ namespace SWIdentification
             this.MinEachLoop = MinEachLoop;
             this.SecEachLoop = SecEachLoop;
         }
+
         public StopWatch()
         {
         }
+
         public override string ToString()
         {
             return this.Type;

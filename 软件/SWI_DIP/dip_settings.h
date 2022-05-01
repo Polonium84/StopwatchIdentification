@@ -34,6 +34,8 @@ enum SobelDirection {
 struct DipSettings {
 	DipMode dipMode;
 	SWType swType;
+	bool estimate;
+	double fix;
 	bool filter;
 	FilterMode filterMode;
 	BinarizeMode binarizeMode;

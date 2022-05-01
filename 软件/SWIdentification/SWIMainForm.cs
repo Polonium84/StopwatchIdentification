@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using System.IO;
-using System.Diagnostics;
 
 namespace SWIdentification
 {
     public partial class SWIMainForm : Form
     {
         //*****************全局变量********************
-        Image originalImg;
-        StopWatch[] stopWatches;
-        string swdataFilePath = @".\StopWatches.xml";
-        string cacheDirPath = @".\cache";
-        string logFilePath = @".\log.txt";
-        delegate void TextOutput(string s);
+        private Image originalImg;
+
+        private StopWatch[] stopWatches;
+        private string swdataFilePath = @".\StopWatches.xml";
+        private string cacheDirPath = @".\cache";
+        private string logFilePath = @".\log.txt";
+
+        private delegate void TextOutput(string s);
+
         //********************************************
         public SWIMainForm()
         {
@@ -35,6 +32,7 @@ namespace SWIdentification
         {
             Initialize();
         }
+
         /// <summary>
         /// 点击导入图片按钮事件
         /// </summary>
@@ -42,7 +40,7 @@ namespace SWIdentification
         {
             string newPath = @".\cache\originImage.jpg";
             Bitmap bitmap = null;
-            using (OpenFileDialog dialog=new OpenFileDialog())
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
                 dialog.Filter =
                     "图片文件(*.JPG)|*.JPG|所有文件(*.*)|*.*";
@@ -52,18 +50,19 @@ namespace SWIdentification
                 {
                     string oriPath = dialog.FileName;
                     SWILog.Info("用户选择图片文件路径: " + oriPath);
-                    File.Copy(oriPath,newPath);
+                    File.Copy(oriPath, newPath);
                 }
             }
             try { bitmap = new Bitmap(newPath); }
-            catch(ArgumentException ex) { SWIException.InvalidImageFile(ex); };
+            catch (ArgumentException ex) { SWIException.InvalidImageFile(ex); };
             pbPic.Image = (Image)bitmap;
             SWILog.Info("成功加装图片文件");
         }
+
         /// <summary>
         /// 初始化
         /// </summary>
-        void Initialize()
+        private void Initialize()
         {
             //检查并导入秒表数据库文件
             if (!File.Exists(swdataFilePath))
@@ -85,12 +84,14 @@ namespace SWIdentification
             //记录日志
             SWILog.Info("主窗口初始化成功");
         }
-        void InitializeLog()
+
+        private void InitializeLog()
         {
             if (!File.Exists(logFilePath))
                 File.Create(logFilePath).Close();
         }
-        void Output(string text)
+
+        private void Output(string text)
         {
             if (tbLog.InvokeRequired)
             {
@@ -100,7 +101,8 @@ namespace SWIdentification
             else
                 this.tbLog.Text += text + "\r\n";
         }
-        void DIP()
+
+        private void DIP()
         {
             Process dip = new Process();
             dip.StartInfo.FileName =
@@ -118,7 +120,7 @@ namespace SWIdentification
 
         private void Dip_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            string s= e.Data;
+            string s = e.Data;
             Output(s);
         }
 
