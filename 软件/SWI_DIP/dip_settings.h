@@ -1,6 +1,5 @@
 #ifndef DIP_SETTINGS_H
 #define DIP_SETTING_H
-#endif // !SWI_SETTINGS_H
 
 #include <opencv2/core.hpp>
 
@@ -32,7 +31,6 @@ enum SobelDirection {
 	XY = 2
 };
 struct DipSettings {
-	DipMode dipMode;
 	SWType swType;
 	bool estimate;
 	double fix;
@@ -61,3 +59,5 @@ struct DipSettings {
 	cv::Scalar lineColor;
 };
 void InitializeSettings(DipSettings& ds);
+
+#endif // !SWI_SETTINGS_H

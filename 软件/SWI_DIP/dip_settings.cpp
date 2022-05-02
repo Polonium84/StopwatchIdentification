@@ -1,7 +1,6 @@
 #include "dip_settings.h"
 
 void InitializeSettings(DipSettings& ds) {
-	ds.dipMode = MANUAL;
 	ds.swType = SW505;
 	ds.estimate = true;
 	ds.fix = 0.0;

@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dip_console.cpp" />
     <ClCompile Include="dip_exception.cpp" />
     <ClCompile Include="dip_math.cpp" />
     <ClCompile Include="dip_settings.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="SWI_DIP.h" />
     <ClInclude Include="dip_settings.h" />
+    <ClInclude Include="swi_protocol.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

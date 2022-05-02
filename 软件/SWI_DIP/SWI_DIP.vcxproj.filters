@@ -30,12 +30,18 @@
     <ClCompile Include="dip_math.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="dip_console.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SWI_DIP.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="dip_settings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="swi_protocol.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
