@@ -26,6 +26,8 @@ Point Midpoint(Point p1, Point p2);
 Point Midpoint(Line line);
 Point IntersectionPoint(Point p, Point center, int radius);
 bool IsMoreThan180(Line v1, Line v2);
+Point GetCenter(Circle circle);
+Line ToLine(Point p1, Point p2);
 #pragma endregion
 //细化算法部分
 #pragma region dip_thin.cpp
@@ -62,10 +64,15 @@ vector<Circle> DIP_HoughCircle(Mat img);
 vector<Line> DIP_HoughLine(Mat img);
 void FilterCircle(vector<Circle>& circles);
 void FilterLine(vector<Line>& lines);
-Mat DrawCircle(Mat img, vector<Circle> circles);
-Mat DrawLine(Mat img, vector<Line> lines);
+void RemoveCircle(vector<Circle>& source, vector<int> target);
+void RemoveLine(vector<Line>& source, vector<int> target);
+void DrawCircle(Mat& img, vector<Circle> circles);
+void DrawLine(Mat& img, vector<Line> lines);
+void DrawAll();
 void DetectDial(Mat m);
 void DetectIndicator(Mat m);
+void Settle();
+void SendResult();
 #pragma endregion
 
 #endif // !SWI_DIP_H

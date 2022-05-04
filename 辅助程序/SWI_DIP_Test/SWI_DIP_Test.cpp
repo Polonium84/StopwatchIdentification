@@ -25,6 +25,9 @@ int main()
 	img_preProcess = PreProcess(originImg);
 	cout << img_width << endl;
 	cout << img_height << endl;
+	//
+
+	// 
 	DetectCircle(img_preProcess);
 	DetectIndicator(img_preProcess);
 	Settle();

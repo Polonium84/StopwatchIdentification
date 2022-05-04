@@ -51,7 +51,13 @@ constexpr auto _P_MES_IndStart = "MES10A";
 constexpr auto _P_MES_IndFinish = "MES10B";
 constexpr auto _P_MES_CalStart = "MES11A";
 constexpr auto _P_MES_CalFinish = "MES11B";
-
+//结果代码
+constexpr auto _P_OUT_Min = "OUT01";
+constexpr auto _P_OUT_Sec = "OUT02";
+//错误代码
+constexpr auto _P_ERR_FileNotFound = "ERR01";
+constexpr auto _P_ERR_HCError = "ERR02";
+constexpr auto _P_ERR_HLError = "ERR03";
 #endif // !SWI_PROTOCOL_H
 /*
 |SET01|设置工作路径|设置图片等文件所在目录|
@@ -76,7 +82,7 @@ constexpr auto _P_MES_CalFinish = "MES11B";
 |SET09C|设置霍夫直线检测累加器阈值|默认：100<br>数值越小，检测到的直线越多|
 |SET09D|设置霍夫直线检测最小直线长度|默认：50<br>数值越小，检测到的直线越多|
 |SET09E|设置霍夫直线检测最大直线间隙|默认：10<br>数值越大，检测到的直线越多|
-|SET10|设置圆环绘制颜色|默认：#EE82EE（紫色）|
+|SET10|设置圆环绘制颜色|默认：#FF00FF（品红）|
 |SET11|设置圆心绘制颜色|默认：#FF0000（红色）|
 |SET12|设置指针绘制颜色|默认：#00FF00（绿色）|
 |SET13|是否估读|默认：是|
@@ -104,4 +110,9 @@ constexpr auto _P_MES_CalFinish = "MES11B";
 |MES10B|指针定位-完成||
 |MES11A|读数计算-开始||
 |MES11B|读数计算-完成||
+|OUT01|计算结果-分钟部分||
+|OUT02|计算结果-秒部分||
+|ERR01|未找到图片文件||
+|ERR02|霍夫圆检测出错，检测出的圆数量不足|可调整检测参数，放宽限制|
+|ERR03|霍夫直线检测出错，检测出的直线数量不足|可调整检测参数，放宽限制|
 */

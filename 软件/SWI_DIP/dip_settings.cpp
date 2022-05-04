@@ -18,13 +18,13 @@ void InitializeSettings(DipSettings& ds) {
 	ds.houghCircle_dp = 1;
 	ds.houghCircle_minDist = 200;
 	ds.houghCircle_param1 = 100.0;
-	ds.houghCircle_param2 = 200.0;
+	ds.houghCircle_param2 = 120.0;
 	ds.houghLine_rho = 1;
 	ds.houghLine_theta = CV_PI / 180;
 	ds.houghLine_threshold = 100;
 	ds.houghLine_minLineLength = 50;
-	ds.houghLine_maxLineGap = 10;
-	ds.loopColor = cv::Scalar(238, 130, 238);
+	ds.houghLine_maxLineGap = 20;
+	ds.loopColor = cv::Scalar(255, 0, 255);
 	ds.centerColor = cv::Scalar(0, 0, 255);
 	ds.lineColor = cv::Scalar(0, 255, 0);
 }
