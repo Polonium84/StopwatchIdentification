@@ -153,7 +153,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dip_console.cpp" />
-    <ClCompile Include="dip_exception.cpp" />
     <ClCompile Include="dip_math.cpp" />
     <ClCompile Include="dip_settings.cpp" />
     <ClCompile Include="dip_thin.cpp" />

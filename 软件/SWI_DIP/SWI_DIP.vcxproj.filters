@@ -21,9 +21,6 @@
     <ClCompile Include="dip_settings.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dip_exception.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="dip_thin.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
