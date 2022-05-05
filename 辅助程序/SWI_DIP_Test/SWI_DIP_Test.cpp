@@ -16,7 +16,7 @@ Line zero_line;
 SWType swtype = SWType::SW505;
 double result_sec, result_min;
 #pragma endregion
-int main()
+int main(int argc, char** argv)
 {
 	originImg = imread(IMGPATH);
 	img_width = originImg.cols;
@@ -26,7 +26,8 @@ int main()
 	cout << img_width << endl;
 	cout << img_height << endl;
 	//
-
+	printf_s("[SEND]{MES02A}\n");
+	printf_s("[SEND]{MES02B}\n");
 	// 
 	DetectCircle(img_preProcess);
 	DetectIndicator(img_preProcess);

@@ -18,14 +18,20 @@ double fix;
 #pragma endregion
 
 int main(int argc, char** argv) {
+	Info("Run in dependent mode");
 	InitializeSettings(settings);
-	/*
-	if (IsDependentMode(argc, argv))
-		RunDependentMode();
+	if (argc == 6)
+		GetSettings(argv);
 	else
-		RunIndependentMode();
-	*/
-	RunDependentMode();
+		GetSettings();
+	ReadImage();
+	DIP_PreProcess(img);
+	DetectDial(img.clone());
+	DetectIndicator(img.clone());
+	DrawAll();
+	SaveImage(img_finish, "finish");
+	Settle();
+	SendResult();
 	return 0;
 }
 bool IsDependentMode(int argc, char** argv) {
@@ -57,30 +63,37 @@ void RunDependentMode() {
 	Settle();
 	SendResult();
 }
-void GetSettings() {
-	string type;
-	int estimate;
+void GetSettings(char** argv) {
 	Send(_P_SET_WorkDir);//设置工作路径
-	//cin >> workDir;
-	workDir = "F:\\毕业设计\\图片素材\\程序测试";
+	workDir = argv[2];
+	cout << argv[2] << endl;
 	Send(_P_SET_SWSType);//设置秒表型号
-	//cin >> type;
-	type = "505";
+	string type = argv[3];
+	cout << argv[3] << endl;
 	if (type == "504")
 		settings.swType = SW504;
 	else if (type == "505")
 		settings.swType = SW505;
 	Send(_P_SET_Estimate);//设置是否估读
-	//cin >> estimate;
-	estimate = 2;
+	int estimate = atoi(argv[4]);
+	cout << argv[4] << endl;
 	if (estimate)
 		settings.estimate = true;
 	else
 		settings.estimate = false;
 	Send(_P_SET_FixValue);//设置修正值
-	//cin >> settings.fix;
+	settings.fix = atof(argv[5]);
+	cout << argv[5] << endl;
+}
+void GetSettings() {
+	Send(_P_SET_WorkDir);//设置工作路径
+	workDir = "F:\\毕业设计\\图片素材\\程序测试";
+	Send(_P_SET_SWSType);//设置秒表型号
+	settings.swType = SW504;
+	Send(_P_SET_Estimate);//设置是否估读
+	settings.estimate = false;
+	Send(_P_SET_FixValue);//设置修正值
 	settings.fix = 0.0;
-	//printf_s("%s,%d,%d,%f", workDir.c_str(), settings.swType, settings.estimate, settings.fix);
 }
 void ReadImage() {
 	string img_path = workDir + "\\source.jpg";
@@ -447,6 +460,13 @@ void Settle() {
 	switch (settings.swType)
 	{
 	case SW504:
+		result_min = floor(sAngle * 15 / 360);
+		if (settings.estimate)
+			result_sec = round(lAngle * 100 * 30 / 360) / 100 + fix;
+		else
+			result_sec = round(lAngle * 5 * 30 / 360) / 5 + fix;
+		if ((int)floor(sAngle * 30 / 360) % 2 == 1)
+			result_sec += 30;
 		break;
 	case SW505:
 		if (settings.estimate)

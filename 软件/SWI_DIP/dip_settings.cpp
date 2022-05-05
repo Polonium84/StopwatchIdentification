@@ -18,7 +18,7 @@ void InitializeSettings(DipSettings& ds) {
 	ds.houghCircle_dp = 1;
 	ds.houghCircle_minDist = 200;
 	ds.houghCircle_param1 = 100.0;
-	ds.houghCircle_param2 = 120.0;
+	ds.houghCircle_param2 = 150.0;
 	ds.houghLine_rho = 1;
 	ds.houghLine_theta = CV_PI / 180;
 	ds.houghLine_threshold = 100;

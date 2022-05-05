@@ -7,7 +7,6 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
-#include <regex>
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
@@ -152,6 +151,10 @@ void RunDependentMode();
 /// <summary>
 /// 获取设置
 /// （仅附属模式使用）
+/// </summary>
+void GetSettings(char** argv);
+/// <summary>
+/// 获取设置（默认设置）
 /// </summary>
 void GetSettings();
 /// <summary>

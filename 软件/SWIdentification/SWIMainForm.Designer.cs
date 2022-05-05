@@ -34,6 +34,7 @@ namespace SWIdentification
             this.btnPhoto = new System.Windows.Forms.Button();
             this.btnInputFile = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbEstimate = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbFix = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,7 +52,8 @@ namespace SWIdentification
             this.label6 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tbLog = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.lbOut1 = new System.Windows.Forms.Label();
+            this.lbOut2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbPic)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,9 +64,9 @@ namespace SWIdentification
             // 
             this.pbPic.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.pbPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbPic.Location = new System.Drawing.Point(30, 67);
+            this.pbPic.Location = new System.Drawing.Point(26, 53);
             this.pbPic.Name = "pbPic";
-            this.pbPic.Size = new System.Drawing.Size(960, 640);
+            this.pbPic.Size = new System.Drawing.Size(960, 750);
             this.pbPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbPic.TabIndex = 0;
             this.pbPic.TabStop = false;
@@ -85,7 +87,7 @@ namespace SWIdentification
             // 
             this.btnPhoto.Enabled = false;
             this.btnPhoto.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnPhoto.Location = new System.Drawing.Point(627, 806);
+            this.btnPhoto.Location = new System.Drawing.Point(623, 845);
             this.btnPhoto.Name = "btnPhoto";
             this.btnPhoto.Size = new System.Drawing.Size(244, 74);
             this.btnPhoto.TabIndex = 2;
@@ -95,7 +97,7 @@ namespace SWIdentification
             // btnInputFile
             // 
             this.btnInputFile.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnInputFile.Location = new System.Drawing.Point(128, 806);
+            this.btnInputFile.Location = new System.Drawing.Point(136, 845);
             this.btnInputFile.Name = "btnInputFile";
             this.btnInputFile.Size = new System.Drawing.Size(244, 74);
             this.btnInputFile.TabIndex = 1;
@@ -105,7 +107,7 @@ namespace SWIdentification
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.cbEstimate);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.tbFix);
             this.groupBox2.Controls.Add(this.label3);
@@ -117,6 +119,17 @@ namespace SWIdentification
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "识别设置";
+            // 
+            // cbEstimate
+            // 
+            this.cbEstimate.AutoSize = true;
+            this.cbEstimate.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbEstimate.Location = new System.Drawing.Point(221, 221);
+            this.cbEstimate.Name = "cbEstimate";
+            this.cbEstimate.Size = new System.Drawing.Size(111, 37);
+            this.cbEstimate.TabIndex = 11;
+            this.cbEstimate.Text = "估读";
+            this.cbEstimate.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -200,7 +213,7 @@ namespace SWIdentification
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(450, 59);
+            this.label5.Location = new System.Drawing.Point(425, 143);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 40);
             this.label5.TabIndex = 8;
@@ -210,17 +223,17 @@ namespace SWIdentification
             // 
             this.tbResultSec.BackColor = System.Drawing.SystemColors.Window;
             this.tbResultSec.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbResultSec.Location = new System.Drawing.Point(324, 56);
+            this.tbResultSec.Location = new System.Drawing.Point(163, 140);
             this.tbResultSec.Name = "tbResultSec";
             this.tbResultSec.ReadOnly = true;
-            this.tbResultSec.Size = new System.Drawing.Size(120, 53);
+            this.tbResultSec.Size = new System.Drawing.Size(256, 53);
             this.tbResultSec.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(270, 59);
+            this.label4.Location = new System.Drawing.Point(425, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 40);
             this.label4.TabIndex = 6;
@@ -233,7 +246,7 @@ namespace SWIdentification
             this.tbResultMin.Location = new System.Drawing.Point(163, 56);
             this.tbResultMin.Name = "tbResultMin";
             this.tbResultMin.ReadOnly = true;
-            this.tbResultMin.Size = new System.Drawing.Size(101, 53);
+            this.tbResultMin.Size = new System.Drawing.Size(256, 53);
             this.tbResultMin.TabIndex = 4;
             // 
             // label2
@@ -265,6 +278,7 @@ namespace SWIdentification
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "保存";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label6
             // 
@@ -278,40 +292,53 @@ namespace SWIdentification
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(1065, 685);
+            this.progressBar1.Location = new System.Drawing.Point(1065, 781);
+            this.progressBar1.Maximum = 130;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(546, 34);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 7;
             // 
             // tbLog
             // 
             this.tbLog.BackColor = System.Drawing.SystemColors.Window;
-            this.tbLog.Location = new System.Drawing.Point(1065, 739);
+            this.tbLog.Location = new System.Drawing.Point(1065, 850);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(546, 210);
+            this.tbLog.Size = new System.Drawing.Size(546, 99);
             this.tbLog.TabIndex = 8;
             // 
-            // checkBox1
+            // lbOut1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox1.Location = new System.Drawing.Point(221, 221);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(111, 37);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "估读";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.lbOut1.AutoSize = true;
+            this.lbOut1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbOut1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lbOut1.Location = new System.Drawing.Point(1060, 750);
+            this.lbOut1.Name = "lbOut1";
+            this.lbOut1.Size = new System.Drawing.Size(96, 28);
+            this.lbOut1.TabIndex = 9;
+            this.lbOut1.Text = "label8";
+            // 
+            // lbOut2
+            // 
+            this.lbOut2.AutoSize = true;
+            this.lbOut2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbOut2.ForeColor = System.Drawing.Color.BlueViolet;
+            this.lbOut2.Location = new System.Drawing.Point(1060, 718);
+            this.lbOut2.Name = "lbOut2";
+            this.lbOut2.Size = new System.Drawing.Size(96, 28);
+            this.lbOut2.TabIndex = 10;
+            this.lbOut2.Text = "label8";
             // 
             // SWIMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1633, 1000);
+            this.Controls.Add(this.lbOut2);
+            this.Controls.Add(this.lbOut1);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label6);
@@ -360,7 +387,9 @@ namespace SWIdentification
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TextBox tbLog;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbEstimate;
+        private System.Windows.Forms.Label lbOut1;
+        private System.Windows.Forms.Label lbOut2;
     }
 }
 
