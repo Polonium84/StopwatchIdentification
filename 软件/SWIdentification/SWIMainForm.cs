@@ -15,13 +15,12 @@ namespace SWIdentification
     public partial class SWIMainForm : Form
     {
         //*****************全局变量********************
-        private Image originalImg;
-
         private StopWatch[] stopWatches;
         private string swdataFilePath = @".\StopWatches.xml";
         private string cacheDirPath = @".\cache";
         private string saveDirPath = @".\save";
         private string logFilePath = @".\log.txt";
+        private string csvFilePath = @".\record.csv";
         public string arguments;
         public DateTime time_begin, time_end;
         private delegate void TextOutput(string s);
@@ -49,6 +48,8 @@ namespace SWIdentification
         private void btnInputFile_Click(object sender, EventArgs e)
         {
             string newPath = @".\cache\source.jpg";
+            if (File.Exists(newPath))
+                File.Delete(newPath);
             Bitmap bitmap = null;
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
@@ -84,6 +85,7 @@ namespace SWIdentification
             cbSWType.Items.AddRange(stopWatches);
             cbSWType.SelectedIndex = 0;
             //创建或清空缓存文件夹
+            pbPic.Image = null;
             if (Directory.Exists(cacheDirPath))
                 Directory.Delete("cache", true);
             Directory.CreateDirectory("cache");
@@ -100,19 +102,34 @@ namespace SWIdentification
             //记录日志
             SWILog.Info("主窗口初始化成功");
         }
-
+        /// <summary>
+        /// 日志初始化
+        /// </summary>
         private void InitializeLog()
         {
             if (!File.Exists(logFilePath))
                 File.Create(logFilePath).Close();
         }
+        /// <summary>
+        /// 保存识别结果
+        /// </summary>
         private void Save()
         {
-            string zipname = DateTime.Now.ToString("yyMMdd_HHmmss") + ".zip";
+            DateTime time = DateTime.Now;
+            string header = "记录时间,秒表型号,识别结果(分),识别结果(秒)\n";
+            string content =$"{time.ToString("G")},{cbSWType.SelectedItem.ToString()}," +
+                $"{tbResultMin.Text},{tbResultSec.Text}";
+            File.AppendAllText(csvFilePath, '\n' + content);
+            string csvPath = Path.Combine(cacheDirPath, "result.csv");
+            File.WriteAllText(csvPath, header + content);
+            string zipname = time.ToString("yyMMdd_HHmmss") + ".zip";
             ZipFile.CreateFromDirectory(cacheDirPath, Path.Combine(saveDirPath, zipname));
             Output("保存成功");
         }
-
+        /// <summary>
+        /// 输出调试信息
+        /// </summary>
+        /// <param name="text">内容</param>
         private void Output(string text)
         {
             if (tbLog.InvokeRequired)
@@ -123,6 +140,10 @@ namespace SWIdentification
             else
                 this.tbLog.Text += text + "\r\n";
         }
+        /// <summary>
+        /// 更新状态显示1
+        /// </summary>
+        /// <param name="text">内容</param>
         private void Output1(string text)
         {
             if (lbOut1.InvokeRequired)
@@ -133,6 +154,10 @@ namespace SWIdentification
             else
                 this.lbOut1.Text = text;
         }
+        /// <summary>
+        /// 更新状态显示2
+        /// </summary>
+        /// <param name="text">内容</param>
         private void Output2(string text)
         {
             if (lbOut2.InvokeRequired)
@@ -143,6 +168,9 @@ namespace SWIdentification
             else
                 this.lbOut2.Text = text;
         }
+        /// <summary>
+        /// 进度条前进
+        /// </summary>
         private void GoAhead()
         {
             if (progressBar1.InvokeRequired)
@@ -153,6 +181,11 @@ namespace SWIdentification
             else
                 this.progressBar1.PerformStep();
         }
+        /// <summary>
+        /// 显示计算结果
+        /// </summary>
+        /// <param name="result">结果数值</param>
+        /// <param name="index">分/秒</param>
         private void ShowResult(string result,int index)
         {
             if (tbResultMin.InvokeRequired || tbResultSec.InvokeRequired)
@@ -163,11 +196,19 @@ namespace SWIdentification
             else
             {
                 if (index == 1)
-                    this.tbResultMin.Text = result;
+                    this.tbResultMin.Text = Double.Parse(result).ToString("F0");
                 else
-                    this.tbResultSec.Text = result;
+                {
+                    if (this.cbEstimate.Checked)
+                        this.tbResultSec.Text = Double.Parse(result).ToString("F2");
+                    else
+                        this.tbResultSec.Text = Double.Parse(result).ToString("F1");
+                }
             }
         }
+        /// <summary>
+        /// 调用数字图像处理陈故乡
+        /// </summary>
         private void DIP()
         {
             Process dip = new Process();
@@ -184,6 +225,10 @@ namespace SWIdentification
             dip.BeginOutputReadLine();
             dip.WaitForExit();
         }
+        /// <summary>
+        /// 获取设置参数
+        /// </summary>
+        /// <returns>调用程序的传递参数</returns>
         private string GetArgruments()
         {
             StringBuilder builder = new StringBuilder();
@@ -208,13 +253,22 @@ namespace SWIdentification
             }
             return builder.ToString();
         }
+        /// <summary>
+        /// 接收输出事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Dip_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             string s = e.Data;
             Output(s);
             ParseMessage(s);
         }
-
+        /// <summary>
+        /// 点击识别按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnIdentify_Click(object sender, EventArgs e)
         {
             arguments = GetArgruments();
@@ -224,6 +278,10 @@ namespace SWIdentification
             dipProcess.Start();
             time_begin = DateTime.Now;
         }
+        /// <summary>
+        /// 解析消息内容
+        /// </summary>
+        /// <param name="mes">消息内容</param>
         void ParseMessage(string mes)
         {
             if (mes == null)
@@ -242,6 +300,12 @@ namespace SWIdentification
                 content = re_content.Match(mes).Groups[1].Value;
             HandleMessage(type, code, content);
         }
+        /// <summary>
+        /// 处理消息
+        /// </summary>
+        /// <param name="type">消息类型</param>
+        /// <param name="code">消息代码</param>
+        /// <param name="content">消息数据内容</param>
         void HandleMessage(string type,string code,string content)
         {
             if (type != "SEND")
@@ -327,10 +391,40 @@ namespace SWIdentification
                     break;
             }
         }
-
+        /// <summary>
+        /// 结果（秒）文本框内容改变事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbResultSec_TextChanged(object sender, EventArgs e)
+        {
+            if ((sender as TextBox).Text == String.Empty)
+                return;
+            string finalImgPath = Path.Combine(cacheDirPath, "finish.jpg");
+            if (File.Exists(finalImgPath))
+            {
+                Bitmap finalImg = new Bitmap(finalImgPath);
+                pbPic.Image = (Image)finalImg;
+            }
+        }
+        /// <summary>
+        /// 点击重置按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            Initialize();
+        }
+        /// <summary>
+        /// 点击保存按钮事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             Save();
+            Output2("保存成功");
         }
     }
 }

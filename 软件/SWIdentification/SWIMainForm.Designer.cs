@@ -228,6 +228,7 @@ namespace SWIdentification
             this.tbResultSec.ReadOnly = true;
             this.tbResultSec.Size = new System.Drawing.Size(256, 53);
             this.tbResultSec.TabIndex = 7;
+            this.tbResultSec.TextChanged += new System.EventHandler(this.tbResultSec_TextChanged);
             // 
             // label4
             // 
@@ -268,6 +269,7 @@ namespace SWIdentification
             this.btnReset.TabIndex = 4;
             this.btnReset.Text = "重置";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnSave
             // 
@@ -317,9 +319,9 @@ namespace SWIdentification
             this.lbOut1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lbOut1.Location = new System.Drawing.Point(1060, 750);
             this.lbOut1.Name = "lbOut1";
-            this.lbOut1.Size = new System.Drawing.Size(96, 28);
+            this.lbOut1.Size = new System.Drawing.Size(138, 28);
             this.lbOut1.TabIndex = 9;
-            this.lbOut1.Text = "label8";
+            this.lbOut1.Text = "状态显示1";
             // 
             // lbOut2
             // 
@@ -328,9 +330,9 @@ namespace SWIdentification
             this.lbOut2.ForeColor = System.Drawing.Color.BlueViolet;
             this.lbOut2.Location = new System.Drawing.Point(1060, 718);
             this.lbOut2.Name = "lbOut2";
-            this.lbOut2.Size = new System.Drawing.Size(96, 28);
+            this.lbOut2.Size = new System.Drawing.Size(138, 28);
             this.lbOut2.TabIndex = 10;
-            this.lbOut2.Text = "label8";
+            this.lbOut2.Text = "状态显示2";
             // 
             // SWIMainForm
             // 

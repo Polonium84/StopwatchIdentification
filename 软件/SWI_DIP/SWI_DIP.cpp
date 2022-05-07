@@ -239,7 +239,6 @@ void DetectIndicator(Mat img) {
 	DrawLine(img_lines, lines);
 	SaveImage(img_lines, "lines");
 	FilterLine(lines);
-	cout << lines.size();
 	Mat img_indicators = img_source.clone();
 	DrawLine(img_indicators, lines);
 	SaveImage(img_indicators, "indicators");
@@ -384,8 +383,6 @@ void FilterLine(vector<Line>& lines) {
 		if (angle(CosineLaw(GetCenter(lDial), begin, end)) < threshold_angle)//与大表盘圆心共线
 			probable_lIndicator.push_back(lines[i]);//可能为大表盘指针
 	}
-	cout << "小" << probable_sIndicator.size() << endl;
-	cout << "大" << probable_lIndicator.size() << endl;
 	sort(
 		probable_sIndicator.begin(),
 		probable_sIndicator.end(),
@@ -450,11 +447,11 @@ void Settle() {
 	Send(_P_MES_CalStart);
 	double sAngle, lAngle;
 	if (IsMoreThan180(zero_line, sIndicator))
-		sAngle = acos(CosineLaw(zero_line, sIndicator)) * 180 / CV_PI + 180;
+		sAngle = 360 - (acos(CosineLaw(zero_line, sIndicator)) * 180 / CV_PI);
 	else
 		sAngle = acos(CosineLaw(zero_line, sIndicator)) * 180 / CV_PI;
 	if (IsMoreThan180(zero_line, lIndicator))
-		lAngle = acos(CosineLaw(zero_line, lIndicator)) * 180 / CV_PI + 180;
+		lAngle = 360 - (acos(CosineLaw(zero_line, lIndicator)) * 180 / CV_PI);
 	else
 		lAngle = acos(CosineLaw(zero_line, lIndicator)) * 180 / CV_PI;
 	switch (settings.swType)
